@@ -108,6 +108,7 @@ You should see the screen such like this:
 ![image](react_start_animationgif.gif)
 
 ### Make some simplicity
+Folders of the project have to much files for beginners. All should be removed except ***`index.html`*** from `public` and ***`App.js`*** & ***`index.js`*** from `src`.  
 
 I think it should be better to remove some extra lines from ***`index.html`***. For example, icons, comments, etc. That data is not necessary for beginners like me.  
 Here we go! You may compare your file with mine:
