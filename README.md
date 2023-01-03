@@ -110,8 +110,11 @@ You should see the screen such like this:
 ### Make some simplicity
 Folders of the project have to much files for beginners. All should be removed except ***`index.html`*** from `public` and ***`App.js`*** & ***`index.js`*** from `src`.  
 
-I think it should be better to remove some extra lines from ***`index.html`***. For example, icons, comments, etc. That data is not necessary for beginners like me.  
-Here we go! You may compare your file with mine:
+I think it should be better to remove some extra lines from ***`index.html`***, ***`App.js`*** and ***`index.js`*** For example, icons, comments, etc. That data is not necessary for beginners like me.  
+Here we go! You may compare your files with mine:
+
+
+<details><summary> <u>index.html</u> 👈👈👈</summary>
 
 ```html
 <!DOCTYPE html>
@@ -129,11 +132,49 @@ Here we go! You may compare your file with mine:
 ```
 
 You can see, now the file looks like standard `html` template with only one `root` block. This block should contain an `app` component:
-
 ```html
 <div id="root">
     <!-- my APP gonna be here -->
 </div>
 ```
+</details>
+
+<details><summary> <u>App.js</u> 👈👈👈</summary>
+
+Here I need the clear template as well. `App()` function only.
+> Don't forget to ***`import React from "react";`***!
+
+```js
+import React from "react";
+
+function App() {
+  return (
+    <div className="App">
+      
+    </div>
+  );
+}
+
+export default App;
+
+```
+</details>
+
+<details><summary> <u>index.js</u> 👈👈👈</summary>
+
+And here I need only 3 components to import: `React core`, `React DOM` and `App`. The last one must be the only one callable in `root` block.
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <App />
+);
+```
+
+</details>
 
 ---
