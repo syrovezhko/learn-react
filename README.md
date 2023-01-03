@@ -177,3 +177,37 @@ root.render(
 </details>
 
 ---
+
+## A fue words about JSX
+
+Do you remember how to create `HTML` elements via `JavaScript`? What should I write in `index.js`?
+
+```js
+ReactDOM.render(
+    React.createElement('div', {}
+        React.createElement('button', {}, 'TEXT')
+    )
+)
+```
+It's too complicated, isn't it? If we need `HTML`, why we can't write `HTML`? 
+<div align="center">
+    <img src="god_no.gif">
+</div>
+
+**No! We CAN!**
+It's called **JSX** or **JavaScript XML**. `JSX` allows us to write HTML in React. You may read about it [here](https://www.w3schools.com/react/react_jsx.asp). let's rewrite the same things using it:
+
+```jsx
+ReactDOM.render(
+    <div>
+        <button>TEXT</button>
+    </div>
+)
+```
+<div align="center">
+    <img src="michael like it.gif">
+</div>
+
+Now you can see, `React` made `JS`-coding a bit relaxing by `JSX`.
+
+---
