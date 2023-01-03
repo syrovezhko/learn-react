@@ -105,7 +105,9 @@ npm start
 ```
 
 You should see the screen such like this:
-![image](react_start_animationgif.gif)
+<div align="center">
+    <img src="react_start_animationgif.gif">
+</div>
 
 ### Make some simplicity
 Folders of the project have to much files for beginners. All should be removed except ***`index.html`*** from `public` and ***`App.js`*** & ***`index.js`*** from `src`.  
@@ -211,3 +213,68 @@ ReactDOM.render(
 Now you can see, `React` made `JS`-coding a bit relaxing by `JSX`.
 
 ---
+
+## UseState or state tracking in a function component
+
+Let's open up the `App.js`. We have an `App` function that returns an `App` block.  
+I'd like to make a simple counter there. It should contain two buttons for incrementing and decrementing and a heading that displayed a number.  
+
+To make it clickable I have to declare a variable that contain the number and write respective functions:
+
+```js
+let likes = 0;
+
+function increment () {
+    likes ++;
+    console.log(likes); //for debugging
+}
+
+function decrement () {
+    likes --;
+    console.log(likes); //for debugging
+}
+```
+
+In order to display it on web it's necessary to add event listeners to buttons:
+
+```html
+<div className="App">
+    <h1>{likes}</h1>
+    <button onClick={increment}>+</button>
+    <button onClick={decrement}>-</button>
+</div>
+```
+
+The counter is work. But debugging only😢
+<div align="center">
+    <img src="UseState_1.gif">
+</div>
+
+The thing is that React need explicitly instruct where the state is changed. That is the `UseState`.  
+I mean, every component has a `state`. If the component's `state` has been changed, React will `rerender` the `changed` component `only`.  
+UseState provide as an array that contain two items: the value and the function that change the value's state. Let's fix some logic:
+
+```js
+const [likes, setLikes] = useState(5)
+
+function increment () {
+    setLikes(likes + 1);
+}
+
+function decrement () {
+    setLikes(likes - 1);
+}
+```
+
+Now it works.
+<div align="center">
+    <img src="UseState_2.gif">
+</div>
+
+That's enough for today, I guess.
+
+---
+
+### [Back to main branch](https://github.com/syrovezhko/learn-react)
+#### [~~checkout **Day 0**~~](https://github.com/syrovezhko/learn-react) | [checkout **Day 2**](https://github.com/syrovezhko/learn-react/tree/day_2#learnreact)
+#### [My CV](https://github.com/syrovezhko)
