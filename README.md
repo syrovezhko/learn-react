@@ -110,11 +110,10 @@ You should see the screen such like this:
 ### Make some simplicity
 Folders of the project have to much files for beginners. All should be removed except ***`index.html`*** from `public` and ***`App.js`*** & ***`index.js`*** from `src`.  
 
+<details><summary> <u>index.html</u> 👈👈👈</summary>
+
 I think it should be better to remove some extra lines from ***`index.html`***, ***`App.js`*** and ***`index.js`*** For example, icons, comments, etc. That data is not necessary for beginners like me.  
 Here we go! You may compare your files with mine:
-
-
-<details><summary> <u>index.html</u> 👈👈👈</summary>
 
 ```html
 <!DOCTYPE html>
