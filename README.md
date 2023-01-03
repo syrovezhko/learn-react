@@ -107,4 +107,32 @@ npm start
 You should see the screen such like this:
 ![image](react_start_animationgif.gif)
 
+### Make some simplicity
+
+I think it should be better to remove some extra lines from ***`index.html`***. For example, icons, comments, etc. That data is not necessary for beginners like me.  
+Here we go! You may compare your file with mine:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+You can see, now the file looks like standard `html` template with only one `root` block. This block should contain an `app` component:
+
+```html
+<div id="root">
+    <!-- my APP gonna be here -->
+</div>
+```
+
 ---
