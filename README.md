@@ -290,6 +290,77 @@ export default App;
 
 It demonstrates the `reusability` of `components`. These `components` were only `training`, but they could be arbitrarily `complex`.
 
+## Class Components
+
+This is an old one approach. But somewhere it's using, as far as I know.
+
+In order to get the component skeleton, there is also a snippet. Type `rcc` and hit the `Tab` button in `ClassCounter.jsx` (I hope you'd up to create that one by yourself).
+
+<details><summary>Should look like this 👈👈👈</summary>
+
+```jsx
+import React, { Component } from 'react';
+
+class ClassCounter extends Component {
+  render() {
+    return (
+      <div>
+        
+      </div>
+    );
+  }
+}
+
+export default ClassCounter;
+```
+</details>
+<br/>
+
+You may have noticed here is a `render` function, unlike the functional component, that should `return` a `JSX`. Please keep in mind this is not an object.
+
+We can't use `hokes` here. In order to `set state` a `constructor` is needed:
+
+```jsx
+constructor(props) {
+  super(props);
+  this.state = {
+    likes: 0
+  }
+```
+There is the state property that reserved in components. I needed to add a likes field to it.
+
+To change the `state`, you need to call the `setState` function via context. Functions should be declared like this:
+```jsx
+increment () {
+  this.setState({likes: this.state.likes += 1})
+}
+
+decrement () {
+  this.setState({likes: this.state.likes -= 1})
+}
+```
+The returnable JSX will be similar, but with the context considering:
+```jsx
+return (
+  <div>
+    <h1>{this.state.likes}</h1>
+    <button onClick={this.increment}>+</button>
+    <button onClick={this.decrement}>-</button>
+  </div>
+)
+```
+
+Alright, just import this at App.js and... it doesn't work. I've forgot to bind the context with button functions. Put the code written down below to the `constructor` after the `state` property:
+
+```jsx
+this.increment = this.increment.bind(this);
+this.decrement = this.decrement.bind(this);
+```
+Yippee! It's work again!
+<div align="center">
+    <img src="https://github.com/syrovezhko/learn-react/blob/day_1/UseState_2.gif">
+</div>
+
 ---
 
 That's enough for today, I guess.
