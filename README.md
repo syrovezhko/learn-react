@@ -98,6 +98,198 @@ export default App;
 
 ## The component approach
 
+It's time to divide this application into modules. However, React has something better - components.
+
+First of all, I should make a new directory `components` in the `src` folder. The first component will be a `Counter.jsx`.
+
+> Pay attention, the `first letter` of the file name is `capital` and the file `extension` is `JSX`.
+
+> Before continue, it's better to install the [Reactjs code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets), in the case of using VSCode of course.
+
+You may get the component skeleton by snippet. Just type `rsc` and hit the `Tab` button in `Counter.jsx`.
+
+```jsx
+import React from 'react';
+
+const Counter = () => {
+    return (
+        <div>
+            
+        </div>
+    );
+};
+
+export default Counter;
+```
+
+
+You may have noticed the `component` is just a `function` that `returned` some `JSX` data. It could be as `Arrow Function` and `Function Declaration`. Well, let's `move` count's code parts from the `App.js` into the `Counter.jsx`:
+
+```jsx
+import React, { useState } from 'react';
+
+const Counter = () => {
+  const [likes, setLikes] = useState(0)
+
+  function increment () {
+    setLikes(likes + 1);
+  }
+
+  function decrement () {
+    setLikes(likes - 1);
+  }
+
+  return (
+    <div>
+      <h1>{likes}</h1>
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+    </div>
+  );
+};
+
+export default Counter;
+```
+
+The App.js will changed like this:
+
+```jsx
+import React, { useState } from "react";
+import Counter from "./components/Counter";
+
+function App() {
+
+  return (
+    <div className="App">
+      <Counter/>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Try to make all the same for text input component by yourself.
+
+> Don't forget about `imports` `useState` to `both` of `components` and `themselves` into the `App.js`.
+
+<details><summary>Don't peek😉</summary>
+<table align="center">
+  <tr>
+    <th>App.js</th>
+    <th>Counter.jsx</th>
+    <th>TextInput.jsx</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  import React from "react";
+  import Counter from "./components/Counter";
+  import TextInput from "./components/TextInput";
+
+  function App() {
+
+    return (
+      <div className="App">
+        <Counter/>
+        <hr/>
+        <TextInput/>
+      </div>
+    );
+  }
+
+  export default App;
+
+  ```
+
+  </td>
+  <td valign="top">
+
+  ```jsx
+  import React, { useState } from 'react';
+
+  const Counter = () => {
+    const [likes, setLikes] = useState(0)
+
+    function increment () {
+      setLikes(likes + 1);
+    }
+
+    function decrement () {
+      setLikes(likes - 1);
+    }
+
+    return (
+      <div>
+        <h1>{likes}</h1>
+        <button onClick={increment}>+</button>
+        <button onClick={decrement}>-</button>
+      </div>
+    );
+  };
+
+  export default Counter;
+  ```
+
+  </td>
+  <td valign="top">
+
+  ```jsx
+  import React, { useState } from 'react';
+
+  const TextInput = () => {
+    const [value, setValue] = useState('Text in input')
+
+    return (
+      <div>
+        <h2>{value}</h2>
+        <input
+          type="text"
+          value={value}
+          onChange={event => setValue(event.target.value)}>
+        </input>
+      </div>
+    );
+  };
+
+  export default TextInput;
+  ```
+
+  </td>
+  </tr>
+</table>
+</details>
+
+###### Note that you can add multiple component instances and each one will work independently.
+
+```jsx
+import React from "react";
+import Counter from "./components/Counter";
+import TextInput from "./components/TextInput";
+
+function App() {
+
+  return (
+    <div className="App">
+      <Counter/>
+      <Counter/>
+      <Counter/>
+      <hr/>
+      <TextInput/>
+      <TextInput/>
+    </div>
+  );
+}
+
+export default App;
+```
+<div align="center">
+    <img src="ControlledComponents_3.gif">
+</div>
+
+It demonstrates the `reusability` of `components`. These `components` were only `training`, but they could be arbitrarily `complex`.
+
 ---
 
 That's enough for today, I guess.
