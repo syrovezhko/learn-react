@@ -19,6 +19,6 @@ That's enough for today, I guess.
 
 ---
 
-### [Back to main branch](https://github.com/syrovezhko/learn-react)
-#### [checkout **Day 1**](https://github.com/syrovezhko/learn-react/tree/day_1#learnreact) | [checkout **Day 3**](https://github.com/syrovezhko/learn-react/tree/day_3#learnreact)
+### [Back to main branch](https://github.com/syrovezhko/learn-react#learnreact)
+#### [checkout **Day 2**](https://github.com/syrovezhko/learn-react/tree/day_2#learnreact) | [checkout **Day 4**](https://github.com/syrovezhko/learn-react/tree/day_4#learnreact)
 #### [My CV](https://github.com/syrovezhko)
