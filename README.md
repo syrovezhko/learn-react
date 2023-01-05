@@ -327,7 +327,7 @@ constructor(props) {
     likes: 0
   }
 ```
-There is the state property that reserved in components. I needed to add a likes field to it.
+There is the state property that a protected name in components. I needed to add a likes field to it.
 
 To change the `state`, you need to call the `setState` function via context. Functions should be declared like this:
 ```jsx
