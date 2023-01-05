@@ -201,6 +201,16 @@ export default App;
 ```
 </details>
 
+## Inline Styling
+There are many ways to style React with CSS. Today I used the [CSS stylesheet](#css-styles-in-react). It's time to look at inline styling.
+
+To make it work I have to pass an `object` through the `style` attribute. The key-value pair should look like this: `textAlign: 'center'`. Pay attention, the style's property in CamelCase.
+```jsx
+<h1 style={{textAlign: 'center'}}>{title}</h1>
+```
+
+You may learn more [here](https://www.w3schools.com/react/react_css.asp).
+
 
 ---
 
