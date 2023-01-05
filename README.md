@@ -1,5 +1,5 @@
 # learnReact
-## Day 1 `04/01/2023`
+## Day 2 `04/01/2023`
 
 Happy New Year motherfucker...
 
