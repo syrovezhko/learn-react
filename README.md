@@ -103,7 +103,7 @@ To transmit some data, an ID, a title or body for example, I have to point they 
   }} />
 // I liked the last one so much more.'
 ```
-Since props is an object and that one named as post has a content like id, title and body, I can take and use the data in the component like `{props.post.id}`.
+Since `props` is an `object` and that one named as `post` has a `content` like `id`, `title` and `body`, I can take and use the data in the component like `{props.post.id}`.
 
 <details><summary>The updated <b><i>PostItem.jsx</i></b> is here 👈👈👈</summary>
 
@@ -131,6 +131,76 @@ export default PostItem;
 </details>
 
 ## Lists, keys and transforming arrays
+This will generate the list of components. Just as in the previous section, the [official guide](https://reactjs.org/docs/lists-and-keys.html) contains everything you need.
+
+First of all, I need a new component, a `PostList.jsx`. It should contain a `heading` and a `map` function that will help to `transform` an `array` of props. The `array` of objects with the data I'll put into `App.js` as a state:
+
+```jsx
+const [posts, setPosts] = useState([
+  {id: 1, title: 'The first title', body: 'The first description'},
+  {id: 2, title: 'The second title', body: 'The second description'},
+  {id: 3, title: 'The third title', body: 'The third description'},
+])
+```
+
+The `PostList.jsx` will look like this:
+```jsx
+import React from 'react';
+import PostItem from './PostItem';
+
+const PostList = (posts, title) => {
+  return (
+    <div>
+      <h1 >
+        {title}
+      </h1>
+      {posts.map((post) =>
+        <PostItem
+          post={post}
+          key={post.id} />
+      )}
+    </div>
+  );
+};
+
+export default PostList;
+
+```
+
+> Take a look to the `key` attribute. `Keys` help `React` identify which `items` have `changed`, are `added`, or are `removed`. `Keys` should be `given` to the `elements` `inside the array` to give the elements a `stable` identity, because the index of array can be changed but not an ID.
+
+<div align="center">
+  <img src="PostList.jpg">
+</div>
+
+<details><summary>The updated <b><i>App.js</i></b> is here 👈👈👈</summary>
+
+```jsx
+import React from "react";
+import PostList from "./components/PostList";
+import './styles/App.css'
+import { useState } from "react";
+
+function App() {
+  const [posts, setPosts] = useState([
+    {id: 1, title: 'The first title', body: 'The first description'},
+    {id: 2, title: 'The second title', body: 'The second description'},
+    {id: 3, title: 'The third title', body: 'description'},
+  ])
+
+  return (
+    <div className="App">
+      <PostList
+        posts={posts}
+        title="Post's list" />
+  </div>
+  );
+}
+
+export default App;
+```
+</details>
+
 
 ---
 
