@@ -8,7 +8,7 @@ Happy New Year motherfucker...
 🎄🎄🎄🎆🎆🎆✨✨✨🎇🎇🎇🎄🎄🎄
 
 ---
-Well, I've fucked up all day yesterday because of my illness. I couldn't be in a non-lying position. I didn't get any better today. I just do codding in the bed.
+> Well, I've fucked up all day yesterday because of my illness. I couldn't be in a non-lying position. I didn't get any better today. I just do codding in the bed.
 
 ---
 
