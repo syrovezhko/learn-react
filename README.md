@@ -288,6 +288,43 @@ To make post's look better I'll transmit the index of array to the PostItem. The
   </tr>
 </table>
 
+It works!
+<div align="center">
+  <img src="UI_3.gif">
+</div>
+
+optimization
+### Code optimization
+Now, it's better to refactor the cod. It could be a lot of form's fields. That's why i need one uniq state as `const [post, setPost] = useState({title: '', body: ''})`.  
+The `addNewPost` function should changed too:
+
+```jsx
+const addNewPost = (e) => {
+  e.preventDefault()
+  /* all we need is just to rewrite `posts` array
+  with a new `post` array and theres ID */
+  setPosts([...posts, {...post, id: Date.now()}])
+  setPost({title: '', body: ''})
+}
+```
+
+And inputs changed like this:
+
+```jsx
+  <MyInput
+    value={post.title}
+    onChange={event => setPost({...post, title: event.target.value})}
+    type="text"
+    placeholder="Post name" />
+  <MyInput
+    value={post.body}
+    onChange={event => setPost({...post, body: event.target.value})}
+    type="text"
+    placeholder="Post description" />
+```
+
+And yes, it's still working😉
+
 ---
 
 That's enough for today, I guess.

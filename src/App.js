@@ -12,35 +12,25 @@ function App() {
     {id: 3, title: 'The third title', body: 'description'},
   ])
 
-  const [title, setTitle] = useState('')
-  const [body, setBody] = useState('')
+  const [post, setPost] = useState({title: '', body: ''})
 
   const addNewPost = (e) => {
     e.preventDefault()
-    const newPost = {
-      id: Date.now(), // make it unique
-      title,
-      body
-    }
-    console.log(newPost)
-    setPosts([...posts,newPost])
-    /*the `...post` is a new array,
-    the `newPost` is a nwe post*/
-    setBody('') // clear body
-    setTitle('') // clear title
+    setPosts([...posts, {...post, id: Date.now()}])
+    setPost({title: '', body: ''})
   }
 
   return (
     <div className="App">
       <form action="">
         <MyInput
-          value={title}
-          onChange={event => setTitle(event.target.value)}
+          value={post.title}
+          onChange={event => setPost({...post, title: event.target.value})}
           type="text"
           placeholder="Post name" />
         <MyInput
-          value={body}
-          onChange={event => setBody(event.target.value)}
+          value={post.body}
+          onChange={event => setPost({...post, body: event.target.value})}
           type="text"
           placeholder="Post description" />
         <MyButton onClick={addNewPost} >Add post</MyButton>
