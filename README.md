@@ -162,6 +162,35 @@ To catch user's input data I have to realize the onChange function as an attribu
   <img src="UI_2.gif">
 </div>
 
+### Uncontrolled component
+The `useRef` hook should help here. It's give the access to the DOM element and theres value.  
+I have to add the `ref` props as an attribute and transmit there the `useRef` hyperlink.
+
+```jsx
+{/* put it after `useState` */}
+const bodyInputRef = useRef();
+{/* this is the `useRef` hyperlink👆 */}
+
+{/* the input wil change like👇 */}
+<MyInput
+  ref={bodyInputRef}
+  type="text"
+  placeholder="Post description" />
+```
+
+In order to use the `useRef` I have to received the data by React.forwardRef. There is [official docs](https://reactjs.org/docs/react-api.html#reactforwardref) about it.  
+The `MyInput.jsx` is changed:
+
+```jsx
+const MyInput = React.forwardRef((props, ref) => {
+  return (
+    <input ref={ref} className={classes.myInput} {...props} />
+  );
+});
+```
+
+That's good! But I don't need two different approach in one section. I'll leave the first one, the controlled.
+
 ---
 
 That's enough for today, I guess.
