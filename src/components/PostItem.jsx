@@ -4,7 +4,11 @@ const PostItem = (props) => {
   return (
     <div className="post">
       <div className="post__connect">
-        <strong>{props.post.id}. {props.post.title}</strong>
+        {/* add a number */}
+        <strong>
+          {props.number +'. '}
+          {props.post.title}
+        </strong>
         <div>
           {props.post.body}
         </div>

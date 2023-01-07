@@ -191,6 +191,103 @@ const MyInput = React.forwardRef((props, ref) => {
 
 That's good! But I don't need two different approach in one section. I'll leave the first one, the controlled.
 
+### Adding posts
+Firs of all, I need a nev sate for post's body:
+```jsx
+const [body, setBody] = useState('')
+```
+The `post description` input should become like `post name`'s one, but with another state's value and function, the `body` and the `setBody`:
+```jsx
+<MyInput
+  value={body}
+  onChange={event => setBody(event.target.value)}
+  type="text"
+  placeholder="Post description" />
+```
+In order to create a `new post` I have to add an `object` to the `addNewPost` function. To save that in the `setPosts` array I have to transmit there a new array and the last post. Of course, if need `to clear inputs` after submission, I have to change `state` functions of `title` and `body` as empty `strings`.  
+Finally, the addNewPost function should look like this:
+```jsx
+const addNewPost = (e) => {
+  e.preventDefault()
+  const newPost = {
+    id: Date.now(), // make it unique
+    title,
+    body
+  }
+  console.log(newPost)
+  setPosts([...posts,newPost])
+  /*the `...post` is a new array,
+  the `newPost` is a new post😉*/
+  setBody('') // clear body
+  setTitle('') // clear title
+}
+```
+
+To make post's look better I'll transmit the index of array to the PostItem. The `PostList.jsx` and the `PostItem.jsx` have been changed like this:
+<table align="center">
+  <tr>
+    <th>PostList.jsx</th>
+    <th>PostItem.jsx</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+    import React from 'react';
+    import PostItem from './PostItem';
+
+    const PostList = ({posts, title}) => {
+      return (
+        <div>
+          <h1 style={{textAlign: 'center'}}>
+            {title}
+          </h1>
+          {posts.map((post, index) => // add index
+          // add number
+            <PostItem
+              number={index + 1}
+              post={post}
+              key={post.id} />
+          )}
+        </div>
+      );
+    };
+
+    export default PostList;
+  ```
+  </td>
+
+  <td valign="top">
+
+  ```jsx
+    import React from 'react';
+
+    const PostItem = (props) => {
+      return (
+        <div className="post">
+          <div className="post__connect">
+            {/* add a number */}
+            <strong>
+              {props.number +'. '}
+              {props.post.title}
+            </strong>
+            <div>
+              {props.post.body}
+            </div>
+          </div>
+          <div className="post__btns">
+            <button>Remove</button>
+          </div>
+        </div>
+      );
+    };
+
+    export default PostItem;
+  ```
+  </td>
+  </tr>
+</table>
+
 ---
 
 That's enough for today, I guess.

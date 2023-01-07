@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import PostList from "./components/PostList";
 import './styles/App.css'
 import { useState } from "react";
@@ -13,26 +13,34 @@ function App() {
   ])
 
   const [title, setTitle] = useState('')
-  const bodyInputRef = useRef();
+  const [body, setBody] = useState('')
 
   const addNewPost = (e) => {
     e.preventDefault()
-    console.log(title)
+    const newPost = {
+      id: Date.now(), // make it unique
+      title,
+      body
+    }
+    console.log(newPost)
+    setPosts([...posts,newPost])
+    /*the `...post` is a new array,
+    the `newPost` is a nwe post*/
+    setBody('') // clear body
+    setTitle('') // clear title
   }
 
   return (
     <div className="App">
       <form action="">
-      {/* a controlled component */}
         <MyInput
           value={title}
           onChange={event => setTitle(event.target.value)}
           type="text"
           placeholder="Post name" />
-
-        {/* an uncontrolled component */}
         <MyInput
-          ref={bodyInputRef}
+          value={body}
+          onChange={event => setBody(event.target.value)}
           type="text"
           placeholder="Post description" />
         <MyButton onClick={addNewPost} >Add post</MyButton>
