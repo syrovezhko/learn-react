@@ -139,6 +139,29 @@ And so, the `App.js` form has been changed:
 </form>
 ```
 
+
+In order to `add` new `posts` I have to `include` an `event listener` that should call the function `addNewPost` as well as this `function`. There are two ways to do this: a `controlled` component or an `uncontrolled` component.
+
+### Controlled component
+I did the same [3 days ago](https://github.com/syrovezhko/learn-react/tree/day_2#controlled-components-and-two-way-bindings-magic). I have to use the state with empty string.
+
+```jsx
+const [title, setTitle] = useState('')
+const bodyInputRef = useRef();
+
+const addNewPost = (e) => { // `e` is `event`
+  e.preventDefault() /* this prevents 
+  the button's default event, submit,
+  which refreshes the page and submits
+  the data */
+  console.log(title) // for self-test
+}
+```
+To catch user's input data I have to realize the onChange function as an attribute of MyInput tag: `onChange={event => setTitle(event.target.value)}`. To see that's fine, just log it.
+<div align="center">
+  <img src="UI_2.gif">
+</div>
+
 ---
 
 That's enough for today, I guess.

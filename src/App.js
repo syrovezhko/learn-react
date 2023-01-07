@@ -15,13 +15,9 @@ function App() {
   const [title, setTitle] = useState('')
   const bodyInputRef = useRef();
 
-  const addNewPost = (e) => { // `e` is `event`
-    e.preventDefault() /* this prevents 
-    the button's default event, submit,
-    which refreshes the page and submits
-    the data */
+  const addNewPost = (e) => {
+    e.preventDefault()
     console.log(title)
-    console.log(bodyInputRef.current)
   }
 
   return (
