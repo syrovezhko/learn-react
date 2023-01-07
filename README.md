@@ -8,7 +8,7 @@ Happy New Year motherfucker...
 🎄🎄🎄🎆🎆🎆✨✨✨🎇🎇🎇🎄🎄🎄
 
 ---
-Well it's time to continue yesterday's [party](https://github.com/syrovezhko/learn-react/tree/day_1#learnreact)
+> Well it's time to continue yesterday's [party](https://github.com/syrovezhko/learn-react/tree/day_1#learnreact)
 
 ## Controlled Components and `two-way bindings` magic
 All right, yesterday I've got acquainted the UseState  on the example of `numbers` changing as [simple counter](https://github.com/syrovezhko/learn-react/tree/day_1#back-to-main-branch). Now I want to try changing the `string` type `state`.  
