@@ -114,9 +114,100 @@ export default PostForm;
 </details>
 <br/>
 It's still working😉
+<br/>
 <div align="center">
   <img src="https://github.com/syrovezhko/learn-react/blob/day_4/UI_3.gif">
 </div>
+
+## Removing a post
+
+To realize this function I'm going to make the same `callback` but for `PostItem` through the `PostList` component. It'd look like this:
+
+```jsx
+/* this should transmitted from PostItom
+                   👇👇👇 */
+const removePost = (post) => {
+/*  if the array item id equal to the post id,
+    it will be removed */
+  setPosts(posts.filter(p => p.id !== post.id))
+}
+```
+The function should be transmitted as a `props` from `App`
+```jsx
+<PostList
+  // like this 👇👇👇
+  remove={removePost}
+  posts={posts}
+  title="Post's list" />
+```
+<details><summary>The <b><i>PostList</i></b> component must accept the data and redirect it to <b><i>PostItem</i></b>.</summary>
+
+```jsx
+// here is a remove props acceptation 👇
+const PostList = ({posts, title, remove}) => {
+  return (
+    <div>
+      <h1 style={{textAlign: 'center'}}>
+        {title}
+      </h1>
+      {posts.map((post, index) => 
+        <PostItem
+/* here is a remove props transmission 
+              👇👇👇 */
+          remove={remove}
+          number={index + 1}
+          post={post}
+          key={post.id} />
+      )}
+    </div>
+  );
+};
+
+export default PostList;
+```
+</details>
+<br/>
+Finally, I have to accept the props in PostItem and call the function on button click through the PostList.
+> And of course, the `button` tag is better to replace for `MyButton`. Not for nothing that I did it yesterday.
+
+<details><summary>Now <b><i>PostItem.jsx</i></b> look like this 👈👈👈</summary>
+
+```jsx
+import React from 'react';
+import MyButton from './UI/button/MyButton';
+
+const PostItem = (props) => {
+  return (
+    <div className="post">
+      <div className="post__connect">
+        <strong>
+          {props.number +'. '}
+          {props.post.title}
+        </strong>
+        <div>
+          {props.post.body}
+        </div>
+      </div>
+      <div className="post__btns">
+        <MyButton
+          onClick={
+            () => props.remove(props.post)
+          }>
+            Remove
+        </MyButton>
+      </div>
+    </div>
+  );
+};
+
+export default PostItem;
+```
+</details>
+<br/>
+<div align="center">
+  <img src="remove_1.gif">
+</div>
+
 ---
 
 That's enough for today, I guess.
