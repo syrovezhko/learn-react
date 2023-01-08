@@ -208,6 +208,32 @@ export default PostItem;
   <img src="remove_1.gif">
 </div>
 
+## Conditional Rendering
+Everything is fine. But I don't like the blank screen after deleting all the elements. I don't want to guess if the array is empty or it's just page load errors. The message like `There are no posts here yet` should be nice. It's called a `Conditional Rendering`. Here is the [official docs](https://reactjs.org/docs/conditional-rendering.html) about it.
+
+In order to make this I have to implement an array's length check. If it's empty I will see a massage about it. If it's not — the `PostList`.  
+The returnable JSX of App will change like this:
+```jsx
+<div className="App">
+  <PostForm create={createPost} />
+  {posts.length !== 0
+    ? <PostList
+        remove={removePost}
+        posts={posts}
+        title="Post's list" />
+    : <h1
+        style={{textAlign: 'center'}}>
+          There are no posts here yet
+      </h1>
+  }
+</div>
+```
+Not bad, I think so. Look like smth. full-fledged.
+<div align="center">
+  <img src="remove_2.gif">
+</div>
+
+
 ---
 
 That's enough for today, I guess.
