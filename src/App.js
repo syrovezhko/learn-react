@@ -45,17 +45,10 @@ function App() {
       <PostFilter
         filter={filter}
         setFilter={setFilter}/>
-{/* changed the checkable array because of a search queries */}
-      {sortedAndSearchedPosts.length !== 0
-        ? <PostList
-            remove={removePost}
-            posts={sortedAndSearchedPosts}
-            title="Post's list" />
-        : <h1
-            style={{textAlign: 'center'}}>
-              There are no posts here yet
-          </h1>
-      }
+      <PostList
+        remove={removePost}
+        posts={sortedAndSearchedPosts}
+        title="Post's list" />
   </div>
   );
 }
