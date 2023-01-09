@@ -7,10 +7,13 @@ import MySelect from "./components/UI/select/MySelect";
 
 function App() {
   const [posts, setPosts] = useState([
-    {id: 1, title: 'The first title', body: 'The first description'},
-    {id: 2, title: 'The second title', body: 'The second description'},
-    {id: 3, title: 'The third title', body: 'description'},
+    {id: 1, title: 'aaa', body: 'bbb'},
+    {id: 2, title: 'ddd', body: 'aaa'},
+    {id: 3, title: 'ccc', body: 'fff'},
   ])
+
+  // the state for two-way binding of sorting
+  const [selectedSort, setSelectedSort] = useState('')
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -20,12 +23,20 @@ function App() {
     setPosts(posts.filter(p => p.id !== post.id))
   }
 
+  // a sorting function
+  const sortPosts = (sort) => {
+    setSelectedSort(sort)
+    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])))
+  }
+
   return (
     <div className="App">
       <PostForm create={createPost} />
       <hr style={{margin: '15px 0'}} />
       <div>
-        <MySelect 
+        <MySelect
+          value={selectedSort}
+          onChange={sortPosts}
           defaultValue="Sorting"
           options={[
             {value: 'title', name: 'By title'},

@@ -1,9 +1,14 @@
 import React from 'react';
 
 // it's accept an options array and a default value
-const MySelect = ({options, defaultValue}) => {
+/*  In order to realize a two-way binding and to make the 
+    Controlled component, I have to add tho more props
+*/
+const MySelect = ({options, defaultValue, value, onChange}) => {
   return (
-    <select>
+    <select
+      value={value}
+      onChange={event => onChange(event.target.value)}>
       <option disabled value="">{defaultValue}</option>
 {/* iterate over the array by map function */}
       {options.map(option =>
