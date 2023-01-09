@@ -5,6 +5,7 @@ import { useState } from "react";
 import PostForm from "./components/PostForm";
 import MySelect from "./components/UI/select/MySelect";
 import MyInput from "./components/UI/input/MyInput";
+import { useMemo } from "react";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -18,15 +19,19 @@ function App() {
   // the state for search queries
   const [searchQuery, setSearchQuery] = useState('')
 
-  function getSortedPosts() {
-    console.log('getSortedPosts has been called')
+  // optimized getSortedPosts by cash of useMemo hook
+  const sortedPosts = useMemo(() => {
+    console.log('useMemo has been called')
     if (selectedSort) {
       return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
     }
     return posts;
-  }
+  }, [selectedSort, posts])
 
-  const sortedPosts = getSortedPosts()
+  // make a search based on sorted array of posts
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery))
+  }, [searchQuery, sortedPosts])
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -60,10 +65,11 @@ function App() {
             {value: 'body', name: 'By description'}
           ]}/>
       </div>
-      {posts.length !== 0
+{/* changed the checkable array because of a search queries */}
+      {sortedAndSearchedPosts.length !== 0
         ? <PostList
             remove={removePost}
-            posts={sortedPosts}
+            posts={sortedAndSearchedPosts}
             title="Post's list" />
         : <h1
             style={{textAlign: 'center'}}>
