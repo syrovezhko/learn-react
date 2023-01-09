@@ -252,6 +252,30 @@ export default App;
 </details>
 <br/>
 
+That looks fine, but it's sorted the `array` and `rerendered` DOM on any change. This can slow down the app. `useMemo` hook may fix it. You may read about it [here](https://beta.reactjs.org/reference/react/useMemo#usememo).
+
+This will replace `getSortedPosts` like this:
+```jsx
+const sortedPosts = useMemo(() => {
+  console.log('useMemo has been called')
+  if (selectedSort) {
+    return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+  }
+  return posts;
+}, [selectedSort, posts])
+```
+Now, `sortedPosts`array contains a sorted data and I can use it for search. I'll use the search query with sorted array on filtered titles in `useMemo`:
+```jsx
+const sortedAndSearchedPosts = useMemo(() => {
+  //        here I expect capital letters in titles👇👇👇
+  return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery))
+}, [searchQuery, sortedPosts])
+```
+
+In order to `render` `search` result I have to transmit `sortedAndSearchedPosts` as a `PostList` props instead of `sortedPosts`. I like it!
+<div align="center">
+  <img src="sorting_2.gif">
+</div>
 
 ---
 
