@@ -4,6 +4,7 @@ import './styles/App.css'
 import { useState } from "react";
 import PostForm from "./components/PostForm";
 import MySelect from "./components/UI/select/MySelect";
+import MyInput from "./components/UI/input/MyInput";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -14,6 +15,18 @@ function App() {
 
   // the state for two-way binding of sorting
   const [selectedSort, setSelectedSort] = useState('')
+  // the state for search queries
+  const [searchQuery, setSearchQuery] = useState('')
+
+  function getSortedPosts() {
+    console.log('getSortedPosts has been called')
+    if (selectedSort) {
+      return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+    }
+    return posts;
+  }
+
+  const sortedPosts = getSortedPosts()
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -25,8 +38,8 @@ function App() {
 
   // a sorting function
   const sortPosts = (sort) => {
+    console.log('sortPosts has been call')
     setSelectedSort(sort)
-    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])))
   }
 
   return (
@@ -34,6 +47,10 @@ function App() {
       <PostForm create={createPost} />
       <hr style={{margin: '15px 0'}} />
       <div>
+        <MyInput
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          placeholder="Search..."/>
         <MySelect
           value={selectedSort}
           onChange={sortPosts}
@@ -46,7 +63,7 @@ function App() {
       {posts.length !== 0
         ? <PostList
             remove={removePost}
-            posts={posts}
+            posts={sortedPosts}
             title="Post's list" />
         : <h1
             style={{textAlign: 'center'}}>
