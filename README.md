@@ -277,6 +277,173 @@ In order to `render` `search` result I have to transmit `sortedAndSearchedPosts`
   <img src="sorting_2.gif">
 </div>
 
+## Filter refactoring
+
+It's look like a new component! I've moved `selection`'s and `filter`'s JSX from `App` to `PostFilter.jsx` with some `props` changing.
+
+<details><summary>My <b><i>PostFilter.jsx</i></b> look like this 👈👈👈</summary>
+
+```jsx
+import React from 'react';
+import MySelect from './UI/select/MySelect';
+import MyInput from './UI/input/MyInput';
+
+const PostFilter = ({filter, setFilter}) => {
+  return (
+    <div>
+      <MyInput
+        value={filter.query}
+        onChange={e => setFilter({...filter, query: e.target.value})}
+        placeholder="Search..."/>
+      <MySelect
+        value={filter.sort}
+        onChange={selctedSort => setFilter({...filter, sort: selctedSort})}
+        defaultValue="Sorting"
+        options={[
+          {value: 'title', name: 'By title'},
+          {value: 'body', name: 'By description'}
+        ]}/>
+    </div>
+  );
+};
+
+export default PostFilter;
+```
+</details>
+<br/>
+
+To make it warks I have to replace tho states by new one:
+```jsx
+/* it was
+const [selectedSort, setSelectedSort] = useState('')
+const [searchQuery, setSearchQuery] = useState('') */
+
+// it became
+const [filter, setFilter] = useState({sort: '', query: ''})
+```
+Hooks will changed like that:
+```jsx
+const sortedPosts = useMemo(() => {
+    console.log('useMemo has been called')
+    if (filter.sort) {
+      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
+    }
+    return posts;
+  }, [filter.sort, posts])
+
+  // make a search based on sorted array of posts
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query))
+  }, [filter.query, sortedPosts])
+```
+
+The `sortPosts` function is not needed any more.
+
+To finish it i have to `transmit` the `filter`'s state to `PostFilter` and refactor that. 
+
+<details><summary>Finally, <b><i>App</i></b> and <b><i>PostFilter</i></b> look like this 👈👈👈</summary>
+
+<table align="center">
+  <tr>
+    <th>App</th>
+    <th>PostFilter</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+import React from "react";
+import PostList from "./components/PostList";
+import './styles/App.css'
+import { useState } from "react";
+import PostForm from "./components/PostForm";
+import { useMemo } from "react";
+import PostFilter from "./components/PostFilter";
+
+function App() {
+  const [posts, setPosts] = useState([
+    {id: 1, title: 'aaa', body: 'bbb'},
+    {id: 2, title: 'ddd', body: 'aaa'},
+    {id: 3, title: 'ccc', body: 'fff'},
+  ])
+
+  // replaced selectedSort and searchQuery
+  const [filter, setFilter] = useState({sort: '', query: ''})
+
+  // optimized getSortedPosts by cash of useMemo hook
+  const sortedPosts = useMemo(() => {
+    console.log('useMemo has been called')
+    if (filter.sort) {
+      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
+    }
+    return posts;
+  }, [filter.sort, posts])
+
+  // make a search based on sorted array of posts
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query))
+  }, [filter.query, sortedPosts])
+
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost])
+  }
+
+  const removePost = (post) => {
+    setPosts(posts.filter(p => p.id !== post.id))
+  }
+
+  return (
+    <div className="App">
+      <PostForm create={createPost} />
+      <hr style={{margin: '15px 0'}} />
+      <PostFilter
+        filter={filter}
+        setFilter={setFilter}/>
+      <PostList
+        remove={removePost}
+        posts={sortedAndSearchedPosts}
+        title="Post's list" />
+  </div>
+  );
+}
+
+export default App;
+  ```
+  </td>
+
+  <td valign="top">
+
+  ```jsx
+import React from 'react';
+import MySelect from './UI/select/MySelect';
+import MyInput from './UI/input/MyInput';
+
+const PostFilter = ({filter, setFilter}) => {
+  return (
+    <div>
+      <MyInput
+        value={filter.query}
+        onChange={e => setFilter({...filter, query: e.target.value})}
+        placeholder="Search..."/>
+      <MySelect
+        value={filter.sort}
+        onChange={selctedSort => setFilter({...filter, sort: selctedSort})}
+        defaultValue="Sorting"
+        options={[
+          {value: 'title', name: 'By title'},
+          {value: 'body', name: 'By description'}
+        ]}/>
+    </div>
+  );
+};
+
+export default PostFilter;
+  ```
+  </td>
+  </tr>
+</table>
+</details>
+
 ---
 
 That's enough for today, I guess.
