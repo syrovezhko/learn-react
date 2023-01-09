@@ -11,7 +11,7 @@ Happy New Year motherfucker...
 > The doctor visited me today. Rapid tests for COVID-19 and influenza a/b were negative. He has me on antibiotics and has told not to go to the work for a week.  
 But fortunately, nobody pay me for studying and I just keep coding in bed😉
 
-## Sorting
+## A Sorting
 
 All right, today I'm going to realized a `sorting` and a `searching` for the list of posts. I need a couple of selected options for post's title and description. I'll just add it to `App` after `PostForm`:
 
@@ -155,6 +155,103 @@ And it works!
 <div align="center">
   <img src="sorting_1.gif">
 </div>
+
+## A Searching
+`MyInput` is suitable to realize a searching `input` field. That `input` must be `controlled`. `MyInput` will transmit the `state's` value as a `value` and that `target` as an `onChange` props.
+
+```jsx
+
+<MyInput
+  value={searchQuery}
+  onChange={e => setSearchQuery(e.target.value)}
+  placeholder="Search..."/>
+```
+
+To get sorted list I have to make one more array's copy. It's too inefficient. I have to `refactor` the previous `function` by save the `sorting`'s result as a `constant` and add a new one.
+<details><summary>Now <b><i>App.js</i></b> look like this 👈👈👈</summary>
+
+```jsx
+import React from "react";
+import PostList from "./components/PostList";
+import './styles/App.css'
+import { useState } from "react";
+import PostForm from "./components/PostForm";
+import MySelect from "./components/UI/select/MySelect";
+import MyInput from "./components/UI/input/MyInput";
+
+function App() {
+  const [posts, setPosts] = useState([
+    {id: 1, title: 'aaa', body: 'bbb'},
+    {id: 2, title: 'ddd', body: 'aaa'},
+    {id: 3, title: 'ccc', body: 'fff'},
+  ])
+
+  // the state for two-way binding of sorting
+  const [selectedSort, setSelectedSort] = useState('')
+  // the state for search queries
+  const [searchQuery, setSearchQuery] = useState('')
+
+  function getSortedPosts() {
+    console.log('getSortedPosts has been called')
+    if (selectedSort) {
+      return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+    }
+    return posts;
+  }
+
+  const sortedPosts = getSortedPosts()
+
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost])
+  }
+
+  const removePost = (post) => {
+    setPosts(posts.filter(p => p.id !== post.id))
+  }
+
+  // a sorting function
+  const sortPosts = (sort) => {
+    console.log('sortPosts has been call')
+    setSelectedSort(sort)
+  }
+
+  return (
+    <div className="App">
+      <PostForm create={createPost} />
+      <hr style={{margin: '15px 0'}} />
+      <div>
+        <MyInput
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          placeholder="Search..."/>
+        <MySelect
+          value={selectedSort}
+          onChange={sortPosts}
+          defaultValue="Sorting"
+          options={[
+            {value: 'title', name: 'By title'},
+            {value: 'body', name: 'By description'}
+          ]}/>
+      </div>
+      {posts.length !== 0
+        ? <PostList
+            remove={removePost}
+            posts={sortedPosts}
+            title="Post's list" />
+        : <h1
+            style={{textAlign: 'center'}}>
+              There are no posts here yet
+          </h1>
+      }
+  </div>
+  );
+}
+
+export default App;
+```
+</details>
+<br/>
+
 
 ---
 
