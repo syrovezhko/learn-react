@@ -5,6 +5,7 @@ import { useState } from "react";
 import PostForm from "./components/PostForm";
 import { useMemo } from "react";
 import PostFilter from "./components/PostFilter";
+import MyModal from "./components/UI/MyModal/MyModal";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -40,7 +41,9 @@ function App() {
 
   return (
     <div className="App">
-      <PostForm create={createPost} />
+      <MyModal>
+        <PostForm create={createPost} />
+      </MyModal>
       <hr style={{margin: '15px 0'}} />
       <PostFilter
         filter={filter}
