@@ -20,7 +20,6 @@ function App() {
 
   useEffect(() => {
     fetchPosts()
-    console.log('USE EFFECT')
   }, [])
 
   const createPost = (newPost) => {
