@@ -8,6 +8,7 @@ import MyModal from "./components/UI/MyModal/MyModal";
 import MyButton from "./components/UI/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
 import axios from 'axios'; 
+import { useEffect } from "react";
 
 function App() {
   const [posts, setPosts] = useState([])
@@ -16,6 +17,11 @@ function App() {
   const [filter, setFilter] = useState({sort: '', query: ''});
   const [modal, setModal] = useState(false);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
+
+  useEffect(() => {
+    fetchPosts()
+    console.log('USE EFFECT')
+  }, [])
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -37,10 +43,6 @@ function App() {
         style={{marginTop: 30}}
         onClick={() => setModal(true)}>
           add post
-      </MyButton>
-      <MyButton
-        onClick={fetchPosts}>
-          Get Posts
       </MyButton>
       <MyModal
         visible={modal}
