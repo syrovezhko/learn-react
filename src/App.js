@@ -35,6 +35,7 @@ function App() {
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
+    setModal(false)
   }
 
   const removePost = (post) => {
@@ -43,6 +44,11 @@ function App() {
 
   return (
     <div className="App">
+      <MyButton
+        style={{marginTop: 30}}
+        onClick={() => setModal(true)}>
+          add post
+      </MyButton>
       <MyModal
         visible={modal}
         setVisible={setModal}>
