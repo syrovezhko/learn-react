@@ -10,15 +10,18 @@ import { usePosts } from "./hooks/usePosts";
 import { useEffect } from "react";
 import PostService from "./API/PostService";
 import Loader from "./components/UI/loader/Loader";
+import { useFetching } from "./hooks/useFetching";
 
 function App() {
   const [posts, setPosts] = useState([])
 
-  // replaced selectedSort and searchQuery
   const [filter, setFilter] = useState({sort: '', query: ''});
   const [modal, setModal] = useState(false);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
-  const [isPostLoading, setIsPostLoading] = useState(false);
+  const [fetchPosts, isPostLoading, postError] = useFetching(async() => {
+    const posts = await PostService.getAll();
+    setPosts(posts);
+  })
 
   useEffect(() => {
     fetchPosts()
@@ -27,15 +30,6 @@ function App() {
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
     setModal(false)
-  }
-
-  async function fetchPosts() {
-    setIsPostLoading(true);
-    setTimeout(async () => {
-      const posts = await PostService.getAll();
-      setPosts(posts);
-      setIsPostLoading(false);
-    }, 3000)
   }
 
   const removePost = (post) => {
@@ -58,6 +52,17 @@ function App() {
       <PostFilter
         filter={filter}
         setFilter={setFilter}/>
+
+      {postError && 
+      <p style={{
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        margin: '20px 0',
+        border: '2px solid red'}}>
+          I'm sorry, there was an error:<br />"{postError}"
+      </p>
+      }
 
       {isPostLoading
         ? <div style={{
